@@ -1,0 +1,106 @@
+import time
+import board
+import digitalio as dio
+import touchio
+import neopixel
+import touchio
+import random
+
+btnb = dio.DigitalInOut(board.BUTTON_B)
+btnb.direction = dio.Direction.INPUT
+btna = dio.DigitalInOut(board.BUTTON_A)
+btna.direction = dio.Direction.INPUT
+"""colors for simon"""
+"""yellow"""
+color1 = [255, 255, 0]
+"""red"""
+color2 = [255, 0, 0]
+"""green"""
+color3 = [0, 128, 0]
+"""blue"""
+color4 = [0, 0, 255]
+touch_pad1 = board.A1
+touch_pad2 = board.A2
+touch_pad3 = board.A5
+touch_pad4 = board.A6
+"""board.A1, board.A2, board.A5, board.A6 touch = [board.A1, board.A2, board.A5, board.A6]"""
+num_pixels = 10
+np = neopixel.NeoPixel(board.NEOPIXEL, num_pixels, brightness=1, auto_write=False)
+"""list of colors used in simon(random)"""
+color_list = [color1, color2, color3, color4]
+touch = []
+touch.append(touchio.TouchIn(touch_pad1))
+touch.append(touchio.TouchIn(touch_pad2))
+touch.append(touchio.TouchIn(touch_pad3))
+touch.append(touchio.TouchIn(touch_pad4))
+led = dio.DigitalInOut(board.LED)
+led.direction = dio.Direction.OUTPUT
+np[0] = color1
+
+
+def p12(color_list):
+    for i in range(2):
+        np[0] = color_list[1]
+        np[1] = color_list[1]
+    np.show()
+
+
+def p34(color_list):
+    for i in range(2):
+        np[3] = color_list[2]
+        np[4] = color_list[2]
+    np.show()
+
+
+def p56(color_list):
+    for i in range(2):
+        np[5] = color_list[3]
+        np[6] = color_list[3]
+    np.show()
+
+
+def p89(color_list):
+    for i in range(2):
+        np[8] = color_list[0]
+        np[9] = color_list[0]
+    np.show()
+
+print("colored")
+
+def end_game():
+    for i in range(100):
+        break
+'''buttons to start and end the game'''
+def button1(touch):
+    if btnb.value:
+        np.show()
+    else: 
+        end_game()
+        
+print("pressed")
+
+def button2(touch):
+    if btna.value:
+        np.show()
+    
+'''def touch1(color1):
+    if touch1.value:
+        np[0] = color_list[1]
+        np[1] = color_list[1]
+        np.show()'''
+while True:
+    led.value = touch[0].value
+    led.value = touch[1].value
+    led.value = touch[2].value
+    led.value = touch[3].value
+    
+    print("works")
+    
+    for i in range(100000000000000000000000000000000000000000000000000000000000000000000000000000):
+        p12(color_list)
+        p34(color_list)
+        p56(color_list)
+        p89(color_list)
+        '''touch1(color_list)'''
+        button1(color_list)
+        button2(color_list)
